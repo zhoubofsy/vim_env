@@ -1,4 +1,6 @@
 "runtime! debian.vim
+set incsearch
+set nu
 set tabstop=4
 set term=screen
 set nofoldenable
@@ -110,20 +112,28 @@ nmap <F5> :cp<CR>
 nmap <F6> :cn<CR>
 
 "CtrlSF:
-let g:ctrlsf_auto_close = 0
+nnoremap <Leader>s :CtrlSF<CR>
+"let g:ctrlsf_auto_close = 0
 let g:ctrlsf_case_sensitive = 'no'
 let g:ctrlsf_context = '-B 5 -A 3'
-let g:ctrlsf_default_root = 'project'
-let g:ctrlsf_mapping = {"next":"n","prev":"p"}
+"let g:ctrlsf_default_root = 'project'
+"let g:ctrlsf_mapping = {"next":"n","prev":"p"}
 let g:ctrlsf_populate_qflist = 1
-let g:ctrlsf_position = 'bottom'
-let g:ctrlsf_winsize = '30%'
+let g:ctrlsf_position = 'right'
+"let g:ctrlsf_winsize = '30%'
+nmap <C-F> <Plug>CtrlSFPrompt
+vmap <C-F>f <Plug>CtrlSFVwordPath
+vmap <C-F>F <Plug>CtrlSFVwordExec
+nmap <C-F>n <Plug>CtrlSFCwordPath
+nmap <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
 
 "The NERD Tree:
 map <Leader>] :NERDTreeToggle<CR>
 let g:NERDTreeShowFiles = 1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeDirArrows = 1
+let g:NERDTreeQuitOnOpen = 1
 
 "Tlist
 map <Leader>[ :Tlist<CR>
