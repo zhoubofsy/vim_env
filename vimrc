@@ -10,13 +10,10 @@ set softtabstop=4
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
-
 set nocompatible               " be iMproved
 filetype off                   " required!
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
 " let Vundle manage Vundle
 " required!
 Bundle 'gmarik/vundle'
@@ -41,19 +38,20 @@ Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'https://github.com/wesleyche/SrcExpl.git'
 Bundle 'https://github.com/altercation/vim-colors-solarized.git'
+Bundle 'https://github.com/vim-scripts/a.vim.git'
 Bundle 'grep.vim'
 Bundle 'Ack.vim'
 Bundle 'dyng/ctrlsf.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'plasticboy/vim-markdown'
-
+Bundle 'fcitx.vim'
 "
 filetype plugin indent on
-" Brief help  -- 此处后面都是vundle的使用命令
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
+" Brief help  -- 此处后面都是vundle的使用命令
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
@@ -61,14 +59,13 @@ syntax enable
 syntax on
 set background=dark
 "colorscheme torte
-colorscheme solarized
+"colorscheme solarized
 "set fillchars+=stl:\ ,stlnc:\
 set laststatus=2
 "set t_Co=256
-"let g:Powerline_symbols='unicode'
-let g:Powerline_symbols='fancy'
+let g:Powerline_symbols='unicode'
+"let g:Powerline_symbols='fancy'
 set guifont=PowerlineSymbols\ for\ Powerline
-
 "SrcExpl:
 nmap <F8> :SrcExplToggle<CR>
 let g:SrcExpl_winHegiht = 8
@@ -83,21 +80,20 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 let g:SrcExpl_updateTagsKey = "<F12>"
 let g:SrcExpl_prevDefKey = "<F3>"
 let g:SrcExpl_nextDefKey = "<F4>"
-
 "cscope
 if has("cscope")
-	set csprg=/usr/bin/cscope
-	set csto=0
-	set cst
-	set nocsverb
-	if filereadable("cscope.out")
+set csprg=/usr/bin/cscope
+set csto=0
+set cst
+set nocsverb
+if filereadable("cscope.out")
 		cs add ./cscope.out
-	elseif $CSCOPE_DB != ""
+elseif $CSCOPE_DB != ""
 		cs add $CSCOPE_DB
-	endif
-	set csverb
-	set cscopetag
-	set cscopequickfix=s-,g-,c-,d-,t-,e-,f-,i-
+endif
+set csverb
+set cscopetag
+set cscopequickfix=s-,g-,c-,d-,t-,e-,f-,i-
 endif
 nmap <C-\>s :cs f s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-\>g :cs f g <C-R>=expand("<cword>")<CR><CR>
@@ -107,10 +103,8 @@ nmap <C-\>t :cs f t <C-R>=expand("<cword>")<CR><CR>
 nmap <C-\>e :cs f e <C-R>=expand("<cword>")<CR><CR>
 nmap <C-\>f :cs f f <C-R>=expand("<cword>")<CR><CR>
 nmap <C-\>i :cs f i <C-R>=expand("<cword>")<CR><CR>
-
 nmap <F5> :cp<CR>
 nmap <F6> :cn<CR>
-
 "CtrlSF:
 nnoremap <Leader>s :CtrlSF<CR>
 "let g:ctrlsf_auto_close = 0
@@ -127,19 +121,49 @@ vmap <C-F>F <Plug>CtrlSFVwordExec
 nmap <C-F>n <Plug>CtrlSFCwordPath
 nmap <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
-
 "The NERD Tree:
 map <Leader>] :NERDTreeToggle<CR>
 let g:NERDTreeShowFiles = 1
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeQuitOnOpen = 1
-
 "Tlist
 map <Leader>[ :Tlist<CR>
-
 "minibufexplorer:
 map <F3> :bn<CR>
 map <F4> :bp<CR>
 "let g:bufExplorerMaxHeight=2
 "let g:miniBufExplorerMoreThanOne=0
+
+"tab:
+nmap <Leader>n :tabn<CR>
+nmap <Leader>p :tabp<CR>
+nmap <Leader>c :tabclose<CR>
+
+"##### auto fcitx  ###########
+let g:input_toggle = 1
+"function! Fcitx2en()
+"   let s:input_status = system("fcitx-remote")
+"   if s:input_status == 2
+"       let g:input_toggle = 1
+"       let l:a = system("fcitx-remote -c")
+"   endif
+"endfunction
+"
+"function! Fcitx2zh()
+"    let s:input_status = system("fcitx-remote")
+"    if s:input_status != 2 && g:input_toggle == 1
+"        let l:a = system("fcitx-remote -o")
+"        let g:input_toggle = 0
+"    endif
+"endfunction
+
+set ttimeoutlen=150
+"退出插入模式
+"autocmd InsertLeave * call Fcitx2en()
+"进入插入模式
+"autocmd InsertEnter * call Fcitx2zh()
+"##### auto fcitx end ######
+
+" .c change to .h
+nmap <Leader>a :A<CR>
